@@ -115,9 +115,7 @@ exports.deleteUser = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({
-      name: { $regex: req.query.name, $options: "i" }
-    });
+    const users = await User.find();
 
     res.status(201).json({
       success: true,
