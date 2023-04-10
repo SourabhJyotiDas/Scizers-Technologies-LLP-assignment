@@ -31,11 +31,17 @@ export const getAllUsers = (name = "",) => async (dispatch) => {
       type: "ALL_USERS_REQUEST",
     });
 
-    const { data } = await axios.get(`/api/v1/users?name=${name}`);
+     const { data } = await axios.get(`/api/v1/users`);
+
+    const newData = data.users.filter((ele) => {
+      if (ele.name.toLowerCase().includes(name) || ele.mobileNo.includes(Number(name))) {
+        return ele
+      }
+    })
 
     dispatch({
       type: "ALL_USERS_SUCCESS",
-      payload: data.users,
+      payload: newData
     });
 
   } catch (error) {
